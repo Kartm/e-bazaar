@@ -1,6 +1,5 @@
+from django.contrib.auth import get_user_model
 from django.db import models
-
-from ebazaar import settings
 
 
 class Country(models.Model):
@@ -29,17 +28,17 @@ class Subcategory(models.Model):
 class Offer(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    price = models.DecimalField('date published', decimal_places=2)
+    price = models.DecimalField('date published', decimal_places=2, max_digits=8)
     shipping = models.TextField()
     open = models.BooleanField()
     last_bump = models.DateTimeField(auto_now_add=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     favorites = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
+        get_user_model(),
+        related_name='favorites',
+    )  # TODO: check if each favorite is unique
 
 
 class Image(models.Model):
