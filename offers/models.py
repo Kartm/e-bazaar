@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils import timezone
 
 
 class Country(models.Model):
@@ -31,7 +32,7 @@ class Offer(models.Model):
     price = models.DecimalField('date published', decimal_places=2, max_digits=8)
     shipping = models.TextField()
     open = models.BooleanField()
-    last_bump = models.DateTimeField(auto_now_add=True)
+    last_bump = models.DateTimeField(default=timezone.now)
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)

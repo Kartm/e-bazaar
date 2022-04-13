@@ -1,0 +1,17 @@
+[
+  {
+    "model": "offers.category",
+    "pk": 1,
+    "fields": {
+      "name": "Electronics"
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Phones",
+      "category": 1
+    }
+  }
+]
