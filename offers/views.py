@@ -1,5 +1,6 @@
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView, CreateView
 
@@ -7,7 +8,7 @@ from offers.models import Offer
 
 
 def offers_feed_view(request):
-    return HttpResponse(f"todo: show feed")
+    return render(request=request, template_name="offers/offer_list.html")
 
 
 def offer_details_view(request, pk):
