@@ -1,5 +1,7 @@
 import base64
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -23,6 +25,14 @@ class OfferCreateForm(forms.ModelForm):
     class Meta:
         model = Offer
         exclude = ('open', 'last_bump', 'owner',    'favorites',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.enctype='multipart/form-data'
+
+        self.helper.add_input(Submit('submit', 'Submit'))
 
 
 class OfferCreateView(CreateView):
