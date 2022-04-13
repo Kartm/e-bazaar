@@ -16,6 +16,8 @@ def offer_details_view(request, pk):
 
 
 class OfferCreateForm(forms.ModelForm):
+    image = forms.ImageField(required=True)
+
     class Meta:
         model = Offer
         exclude = ('open', 'last_bump', 'owner',    'favorites',)
@@ -39,6 +41,7 @@ class OfferCreateView(CreateView):
         return reverse('offers:offers_feed_view', kwargs={})
 
     def form_valid(self, form):
+        print(self.request)
         self.object = form.save(commit=False)
         self.object.owner = self.request.user
         self.object.save()
