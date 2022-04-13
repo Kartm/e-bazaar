@@ -29,9 +29,9 @@ class Subcategory(models.Model):
 class Offer(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    price = models.DecimalField('date published', decimal_places=2, max_digits=8)
+    price = models.DecimalField(decimal_places=2, max_digits=8)
     shipping = models.TextField()
-    open = models.BooleanField()
+    open = models.BooleanField(default=True)
     last_bump = models.DateTimeField(default=timezone.now)
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
