@@ -3,8 +3,8 @@ import base64
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.views.generic import FormView, CreateView
+from django.urls import reverse
+from django.views.generic import CreateView
 
 from offers.models import Offer, Image
 
@@ -24,16 +24,6 @@ class OfferCreateForm(forms.ModelForm):
         model = Offer
         exclude = ('open', 'last_bump', 'owner',    'favorites',)
 
-    def __init__(self, *args, **kwargs):
-        # self.user = kwargs.pop('user')
-        # print(kwargs)
-        super(OfferCreateForm, self).__init__(*args, **kwargs)
-
-    # def clean_title(self):
-    #     title = self.cleaned_data['title']
-    #     if Offer.objects.filter(user=self.user, title=title).exists():
-    #         raise forms.ValidationError("You have already written a book with same title.")
-    #     return title
 
 class OfferCreateView(CreateView):
     template_name = 'offers/offer_create.html'
@@ -50,15 +40,4 @@ class OfferCreateView(CreateView):
         encoded_string = base64.b64encode(self.request.FILES.get('image').file.read())
         offer_image = Image(offer=self.object, base64_dump=encoded_string)
         offer_image.save()
-        print(offer_image)
         return HttpResponseRedirect(self.get_success_url())
-    #
-    # def get_initial(self, *args, **kwargs):
-    #     initial = super(OfferCreateView, self).get_initial(**kwargs)
-    #     initial['title'] = 'My Title'
-    #     return initial
-    #
-    # def get_form_kwargs(self, *args, **kwargs):
-    #     kwargs = super(OfferCreateView, self).get_form_kwargs(*args, **kwargs)
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
