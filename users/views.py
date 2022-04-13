@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
@@ -6,8 +7,6 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 def register_request(request):
-    print(request)
-
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
@@ -43,3 +42,9 @@ def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect(".")
+
+
+def user_view(request, pk):
+    print(request)
+
+    return HttpResponse(f"todo: show profile of user {pk}")
