@@ -1,0 +1,25 @@
+[
+  {
+    "model": "offers.country",
+    "pk": 1,
+    "fields": {
+      "name": "Poland"
+    }
+  },
+  {
+    "model": "offers.city",
+    "pk": 1,
+    "fields": {
+      "name": "Wrocław",
+      "country": 1
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 1,
+    "fields": {
+      "name": "Śródmieście",
+      "city": 1
+    }
+  }
+]
