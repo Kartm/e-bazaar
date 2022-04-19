@@ -1,0 +1,43 @@
+{% extends "users/header.html" %}
+
+{% block content %}
+
+    <div style="margin: 5% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
+        <div style="display: flex; flex-direction: row; font-size: xx-large">
+            <div>{{ offer.title }}, {{ district.name }} {{ city.name }}</div>
+            <div style="position:absolute; right:5%;">${{ offer.price }}</div>
+        </div>
+        <br/>
+        <div style="display: flex; flex-direction: row; min-height: 36%">
+            {% for image in images %}
+                <img src="data:image/png;base64, {{ image.base64_dump }}"/>
+            {% endfor %}
+        </div>
+
+        <div style="display: flex; flex-direction: row; height: 43vh; padding: 10px">
+            <div style="width: 75%; height: 100%">
+                <div style="height: 60%;">
+                    <div>Description:</div>
+                    <div style="overflow: auto; height: 96%">{{ offer.description }}</div>
+                </div>
+                <br/>
+                <div>
+                    <div>Location:</div>
+                    <div>{{ district.name }} {{ city.name }}, {{ country.name }}</div>
+                </div>
+
+            </div>
+            <div style="padding-left: 10px; padding-right: 10px;">
+                <div style=" height: 90%">
+                    <div>Shipping options:</div>
+                    <div>{{ offer.shipping }}</div>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <button>Add to favourites</button>
+                    <button>Author's profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
