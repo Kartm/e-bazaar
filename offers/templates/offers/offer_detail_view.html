@@ -8,9 +8,12 @@
             <div style="position:absolute; right:5%;">${{ offer.price }}</div>
         </div>
         <br/>
-        <div style="display: flex; flex-direction: row; min-height: 36%">
+        <div style="display: flex; flex-direction: row; height: 36%; overflow-x: auto;">
             {% for image in images %}
-                <img src="data:image/png;base64, {{ image.base64_dump }}"/>
+                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
+                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
+                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
+                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
             {% endfor %}
         </div>
 
