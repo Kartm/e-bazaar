@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div style="margin: 5% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
+    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
         <div style="display: flex; flex-direction: row; font-size: xx-large">
             <div>{{ offer.title }}, {{ district.name }} {{ city.name }}</div>
             <div style="position:absolute; right:5%;">${{ offer.price }}</div>
@@ -14,7 +14,7 @@
             {% endfor %}
         </div>
 
-        <div style="display: flex; flex-direction: row; height: 43vh; padding: 10px">
+        <div style="display: flex; flex-direction: row; height: 43vh; padding: 1vh">
             <div style="width: 75%; height: 100%">
                 <div style="height: 60%;">
                     <div>Description:</div>
@@ -27,13 +27,21 @@
                 </div>
 
             </div>
-            <div style="padding-left: 10px; padding-right: 10px;">
-                <div style=" height: 90%">
+            <div style="padding-left: 1vw; padding-right: 1vw;">
+                <div style=" height: 75%">
                     <div>Shipping options:</div>
                     <div>{{ offer.shipping }}</div>
                 </div>
-                <div style="display: flex; flex-direction: row;">
-                    <button>Add to favourites</button>
+                <div style="display: flex; flex-direction: row; font-size: small">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if isFavorite %}
+                            <input type="submit" value="Add to favorites"/>
+                        {% else %}
+                            <input type="submit" value="Remove favorite"/>
+                        {% endif %}
+                        <input type="hidden" name="favorite">
+                    </form>
                     <button>Author's profile</button>
                 </div>
             </div>

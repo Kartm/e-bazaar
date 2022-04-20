@@ -19,6 +19,8 @@ def offers_feed_view(request):
 #     return render(request=request, template_name="offers/offer_detail_view.html")
 # todo well details are removed now
 
+
+
 class OfferDetailView(TemplateView):
     template_name = 'offers/offer_detail_view.html'
 
@@ -35,7 +37,20 @@ class OfferDetailView(TemplateView):
         context['district'] = district
         context['city'] = city
         context['country'] = country
+        context['isFavorite'] = context['offer'].favorites.filter(pk=self.request.user.pk).exists()
         return context
+
+    def post(self, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        bar = self.request.POST.get('favorite', None)
+        if 'favorite' in self.request.POST:
+            if context['offer'].favorites.filter(pk=self.request.user.pk).exists():
+                context['offer'].favorites.remove(self.request.user)
+            else:
+                context['offer'].favorites.add(self.request.user)
+            return HttpResponseRedirect(self.request.path)
+        print(self.request.POST)
+        return self.render_to_response(context)
 
 
 class OfferCreateForm(forms.ModelForm):
