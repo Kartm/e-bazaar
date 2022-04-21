@@ -2,7 +2,48 @@
 
 {% block content %}
 
-    <button><a href="{% url 'offers:offer_create_view' %}">Add new offer</a></button>
+    <div>
+        <button style="float: right; margin-top: 10px; margin-right: 10px">
+            <a href="{% url 'offers:offer_create_view' %}">Add new offer</a>
+        </button>
+    </div>
 
+    <div style="display: flex; height: 100%; overflow-y: scroll; margin: 10px; background-color: lightgrey">
+        <div style="width: 30%; margin: 20px; background-color: white" >
+            {# form for filtering offers #}
+            <form method="get" style="margin: 10px">
+                <input type="search" name="search" style="margin-bottom: 40px">
+                <input type="submit">
+
+                <br/>
+                <label for="sortby" style="font-size: 20px">Sort by</label>
+                <br/>
+                <select id="sortby" name="sortby" onchange="this.form.submit();">
+                    <option disabled hidden selected value>- Select -</option>
+                    <option value="relevance">Relevance</option>
+                    <option value="asc">Price: Low to High</option>
+                    <option value="desc">Price: High to Low</option>
+                </select>
+
+                <br/>
+                <label for="low" style="margin-top: 40px; font-weight: bold">Price</label>
+                <br/>
+                <input id="low" type="number" name="low" placeholder="from" style="width: 100px; text-align: center; border-radius: 25px">
+                <span style="margin-left: 10px; margin-right: 10px">-</span>
+                <input type="number" name="high" placeholder="to" style="width: 100px; text-align: center; border-radius: 25px">
+            </form>
+        </div>
+        <div style="width: 100%; display: flex; flex-wrap: wrap">
+            {% for offer, image in offers %}
+                {# clicking this item should lead to details page... #}
+                <a style="height: fit-content; margin: 20px; background-color: white" href="{% url 'offers:offer_details_view' offer.pk %}">
+                    <img style="width: 200px; height: 100px; object-fit: contain" src="{{ image.base64_dump }}" />
+                    <br/>
+                    <span>{{ offer.title }}</span><br>
+                    <span style="float: right; color: grey">${{ offer.price }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
