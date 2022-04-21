@@ -11,8 +11,21 @@ from django.views.generic import CreateView, TemplateView
 from offers.models import Offer, Image, District, City, Country
 
 
-def offers_feed_view(request):
-    return render(request=request, template_name="offers/offer_list.html")
+#def offers_feed_view(request):
+#    return render(request=request, template_name="offers/offer_list.html")
+
+class OfferFeedView(TemplateView):
+    template_name = 'offers/offer_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        offers = []
+
+        for offer in Offer.objects.all():
+            offers.append((offer, Image.objects.get(offer=offer.pk)))
+
+        context['offers'] = offers
+        return context
 
 
 # def offer_details_view(request, pk):
