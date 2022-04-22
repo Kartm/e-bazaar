@@ -51,7 +51,7 @@ class Offer(models.Model):
     favorites = models.ManyToManyField(
         get_user_model(),
         related_name='favorites',
-    )  # TODO: check if each favorite is unique
+    )
 
 
 class Image(models.Model):
