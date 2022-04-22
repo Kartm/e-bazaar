@@ -94,7 +94,10 @@ class OfferCreateView(CreateView):
         self.object.owner = self.request.user
         self.object.save()
 
-        encoded_string = base64.b64encode(self.request.FILES.get('image').file.read())
-        offer_image = Image(offer=self.object, base64_dump=encoded_string)
+        prefix = f"data:image/{str(self.request.FILES.get('image')).split('.')[-1]};base64,"
+        print(prefix)
+        encoded_string = base64.b64encode(self.request.FILES.get('image').file.read()).decode('utf-8')
+        print(encoded_string)
+        offer_image = Image(offer=self.object, base64_dump=f"{prefix}{encoded_string}")
         offer_image.save()
         return HttpResponseRedirect(self.get_success_url())
