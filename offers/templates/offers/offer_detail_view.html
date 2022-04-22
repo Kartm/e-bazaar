@@ -15,6 +15,9 @@
                 <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
                 <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
             {% endfor %}
+            {% if images|length == 0 %}
+                <img style="width: 200px; height: 100px; object-fit: contain" src="https://via.placeholder.com/700x400?text=placeholder" />
+            {% endif %}
         </div>
 
         <div style="display: flex; flex-direction: row; height: 43vh; padding: 1vh">

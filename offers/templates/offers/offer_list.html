@@ -37,7 +37,11 @@
             {% for offer, image in offers %}
                 {# clicking this item should lead to details page... #}
                 <a style="height: fit-content; margin: 20px; background-color: white" href="{% url 'offers:offer_details_view' offer.pk %}">
-                    <img style="width: 200px; height: 100px; object-fit: contain" src="{{ image.base64_dump }}" />
+                    {% if image is None %}
+                        <img style="width: 200px; height: 100px; object-fit: contain" src="https://via.placeholder.com/700x400?text=placeholder" />
+                    {% else %}
+                        <img style="width: 200px; height: 100px; object-fit: contain" src="{{ image.base64_dump }}" />
+                    {% endif %}
                     <br/>
                     <span>{{ offer.title }}</span><br>
                     <span style="float: right; color: grey">${{ offer.price }}</span>

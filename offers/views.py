@@ -22,7 +22,7 @@ class OfferFeedView(TemplateView):
         offers = []
 
         for offer in Offer.objects.all():
-            offers.append((offer, Image.objects.get(offer=offer.pk)))
+            offers.append((offer, Image.objects.filter(offer=offer.pk).first()))
 
         context['offers'] = offers
         return context
