@@ -21,5 +21,108 @@
       "name": "Śródmieście",
       "city": 1
     }
+  },
+  {
+    "model": "offers.district",
+    "pk": 2,
+    "fields": {
+      "name": "Ołbin",
+      "city": 1
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 3,
+    "fields": {
+      "name": "Fabryczna",
+      "city": 1
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 4,
+    "fields": {
+      "name": "Biskupin",
+      "city": 1
+    }
+  },
+  {
+    "model": "offers.city",
+    "pk": 2,
+    "fields": {
+      "name": "Częstochowa",
+      "country": 1
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 5,
+    "fields": {
+      "name": "Stradom",
+      "city": 2
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 6,
+    "fields": {
+      "name": "Śródmieście",
+      "city": 2
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 7,
+    "fields": {
+      "name": "Dźbów",
+      "city": 2
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 7,
+    "fields": {
+      "name": "Kiedrzyn",
+      "city": 2
+    }
+  },
+  {
+    "model": "offers.country",
+    "pk": 2,
+    "fields": {
+      "name": "USA"
+    }
+  },
+  {
+    "model": "offers.city",
+    "pk": 3,
+    "fields": {
+      "name": "Columbia",
+      "country": 2
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 8,
+    "fields": {
+      "name": "Arsenal Hill",
+      "city": 3
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 9,
+    "fields": {
+      "name": "Spring Valley",
+      "city": 3
+    }
+  },
+  {
+    "model": "offers.district",
+    "pk": 10,
+    "fields": {
+      "name": "Yorkshire",
+      "city": 3
+    }
   }
 ]

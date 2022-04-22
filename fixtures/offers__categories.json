@@ -13,5 +13,60 @@
       "name": "Phones",
       "category": 1
     }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Computers",
+      "category": 1
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Accessories",
+      "category": 1
+    }
+  },
+  {
+    "model": "offers.category",
+    "pk": 2,
+    "fields": {
+      "name": "Bikes"
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Mountain Bikes",
+      "category": 2
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 5,
+    "fields": {
+      "name": "City Bikes",
+      "category": 2
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 6,
+    "fields": {
+      "name": "Road Bikes",
+      "category": 2
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 7,
+    "fields": {
+      "name": "Unicycle",
+      "category": 2
+    }
   }
 ]

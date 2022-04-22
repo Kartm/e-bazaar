@@ -22,7 +22,7 @@ class OfferFeedView(TemplateView):
         offers = []
 
         for offer in Offer.objects.all():
-            offers.append((offer, Image.objects.get(offer=offer.pk)))
+            offers.append((offer, Image.objects.filter(offer=offer.pk).first()))
 
         context['offers'] = offers
         return context
@@ -72,6 +72,7 @@ class OfferCreateForm(forms.ModelForm):
     class Meta:
         model = Offer
         exclude = ('open', 'last_bump', 'owner', 'favorites',)
+        labels = {'district': 'Location', 'subcategory': 'Category'}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -94,7 +95,8 @@ class OfferCreateView(CreateView):
         self.object.owner = self.request.user
         self.object.save()
 
-        encoded_string = base64.b64encode(self.request.FILES.get('image').file.read())
-        offer_image = Image(offer=self.object, base64_dump=encoded_string)
+        prefix = f"data:image/{str(self.request.FILES.get('image')).split('.')[-1]};base64,"
+        encoded_string = base64.b64encode(self.request.FILES.get('image').file.read()).decode('utf-8')
+        offer_image = Image(offer=self.object, base64_dump=f"{prefix}{encoded_string}")
         offer_image.save()
         return HttpResponseRedirect(self.get_success_url())
