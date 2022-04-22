@@ -72,6 +72,7 @@ class OfferCreateForm(forms.ModelForm):
     class Meta:
         model = Offer
         exclude = ('open', 'last_bump', 'owner', 'favorites',)
+        labels = {'district': 'Location', 'subcategory': 'Category'}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
