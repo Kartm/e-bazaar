@@ -56,6 +56,9 @@ class Offer(models.Model):
         related_name='favorites',
     )
 
+    class Meta:
+        ordering = ['-last_bump']
+
 
 class Image(models.Model):
     base64_dump = models.TextField()
