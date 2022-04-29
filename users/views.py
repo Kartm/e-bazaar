@@ -63,6 +63,10 @@ class UserProfileView(TemplateView):
 
     def post(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+
+        if not context['is_profile_user_me']:
+            return HttpResponseRedirect(self.request.path)
+
         if 'action' in self.request.POST and 'offer_id' in self.request.POST:
             action = self.request.POST.get('action')
             offer_id = self.request.POST.get('offer_id')
