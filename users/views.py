@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
+from offers.models import Offer
 from .forms import NewUserForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -45,6 +47,8 @@ def logout_request(request):
 
 
 def user_view(request, pk):
-    print(request)
+    user = get_user_model().objects.get(pk=pk)
 
-    return HttpResponse(f"todo: show profile of user {pk}")
+    offers = Offer.objects.filter(owner_id=pk)
+
+    return render(request=request, template_name="users/user_profile_view.html", context={"profile_user": user, "is_profile_user_me": pk == request.user.pk, "profile_user_offers": offers})
