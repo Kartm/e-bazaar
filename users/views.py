@@ -77,3 +77,11 @@ class UserProfileView(TemplateView):
                 print('CLOSE')
             return HttpResponseRedirect(self.request.path)
         return self.render_to_response(context)
+
+class FavoritesView(TemplateView):
+    template_name = "users/favorites_view.html"
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        context = super().get_context_data(**kwargs)
+        return context
