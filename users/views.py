@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
 from offers.models import Offer
 from .forms import NewUserForm
@@ -46,9 +47,27 @@ def logout_request(request):
     return redirect(".")
 
 
-def user_view(request, pk):
-    user = get_user_model().objects.get(pk=pk)
+class UserProfileView(TemplateView):
+    template_name = "users/user_profile_view.html"
 
-    offers = Offer.objects.filter(owner_id=pk)
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        context = super().get_context_data(**kwargs)
+        user = get_user_model().objects.get(pk=pk)
+        offers = Offer.objects.filter(owner_id=pk)
+        context['profile_user'] = user
+        context['is_profile_user_me'] = pk == self.request.user.pk
+        context['profile_user_offers'] = offers
+        return context
 
-    return render(request=request, template_name="users/user_profile_view.html", context={"profile_user": user, "is_profile_user_me": pk == request.user.pk, "profile_user_offers": offers})
+    # def post(self, *args, **kwargs):
+    #     context = self.get_context_data(**kwargs)
+    #     bar = self.request.POST.get('favorite', None)
+    #     if 'favorite' in self.request.POST:
+    #         if context['offer'].favorites.filter(pk=self.request.user.pk).exists():
+    #             context['offer'].favorites.remove(self.request.user)
+    #         else:
+    #             context['offer'].favorites.add(self.request.user)
+    #         return HttpResponseRedirect(self.request.path)
+    #     print(self.request.POST)
+    #     return self.render_to_response(context)
