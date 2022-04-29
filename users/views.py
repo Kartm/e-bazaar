@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.views.generic import TemplateView
 
 from offers.models import Offer
@@ -60,14 +61,15 @@ class UserProfileView(TemplateView):
         context['profile_user_offers'] = offers
         return context
 
-    # def post(self, *args, **kwargs):
-    #     context = self.get_context_data(**kwargs)
-    #     bar = self.request.POST.get('favorite', None)
-    #     if 'favorite' in self.request.POST:
-    #         if context['offer'].favorites.filter(pk=self.request.user.pk).exists():
-    #             context['offer'].favorites.remove(self.request.user)
-    #         else:
-    #             context['offer'].favorites.add(self.request.user)
-    #         return HttpResponseRedirect(self.request.path)
-    #     print(self.request.POST)
-    #     return self.render_to_response(context)
+    def post(self, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if 'action' in self.request.POST and 'offer_id' in self.request.POST:
+            action = self.request.POST.get('action')
+            offer_id = self.request.POST.get('offer_id')
+
+            if action == 'Bump':
+                Offer.objects.filter(pk=offer_id).update(last_bump=timezone.now())
+            elif action == 'Close':
+                print('CLOSE')
+            return HttpResponseRedirect(self.request.path)
+        return self.render_to_response(context)
