@@ -1,7 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.views.generic import TemplateView
+
+from offers.models import Offer
 from .forms import NewUserForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -44,7 +48,40 @@ def logout_request(request):
     return redirect(".")
 
 
-def user_view(request, pk):
-    print(request)
+class UserProfileView(TemplateView):
+    template_name = "users/user_profile_view.html"
 
-    return HttpResponse(f"todo: show profile of user {pk}")
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        context = super().get_context_data(**kwargs)
+        user = get_user_model().objects.get(pk=pk)
+        offers = Offer.objects.filter(owner_id=pk)
+        context['profile_user'] = user
+        context['is_profile_user_me'] = pk == self.request.user.pk
+        context['profile_user_offers'] = offers
+        return context
+
+    def post(self, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if not context['is_profile_user_me']:
+            return HttpResponseRedirect(self.request.path)
+
+        if 'action' in self.request.POST and 'offer_id' in self.request.POST:
+            action = self.request.POST.get('action')
+            offer_id = self.request.POST.get('offer_id')
+
+            if action == 'Bump':
+                Offer.objects.filter(pk=offer_id).update(last_bump=timezone.now())
+            elif action == 'Close':
+                print('CLOSE')
+            return HttpResponseRedirect(self.request.path)
+        return self.render_to_response(context)
+
+class FavoritesView(TemplateView):
+    template_name = "users/favorites_view.html"
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        context = super().get_context_data(**kwargs)
+        return context

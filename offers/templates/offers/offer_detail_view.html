@@ -48,7 +48,9 @@
                         {% endif %}
                         <input type="hidden" name="favorite">
                     </form>
-                    <button>Author's profile</button>
+                    <a style="height: fit-content; margin: 20px; background-color: white" href="{% url 'users:user_view' offer.owner_id %}">
+                        Author's profile
+                    </a>
                 </div>
             </div>
         </div>
