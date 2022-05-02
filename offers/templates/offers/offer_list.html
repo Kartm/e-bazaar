@@ -31,21 +31,22 @@
                 <input id="low" type="number" name="low" placeholder="from" style="width: 100px; text-align: center; border-radius: 25px">
                 <span style="margin-left: 10px; margin-right: 10px">-</span>
                 <input type="number" name="high" placeholder="to" style="width: 100px; text-align: center; border-radius: 25px">
+
+                <br/>
+                <fieldset style="margin-top: 40px">
+                    <legend style="font-weight: bold; font-size: 16px">Category</legend>
+                    {% for category in categories %}
+                        <div>
+                            <input type="checkbox" id="{{category}}" name="category[]" value="{{category}}">
+                            <label for="{{category}}">{{category}}</label>
+                        </div>
+                    {% endfor %}
+                </fieldset>
             </form>
         </div>
         <div style="width: 100%; display: flex; flex-wrap: wrap">
             {% for offer, image in offers %}
-                {# clicking this item should lead to details page... #}
-                <a style="height: fit-content; margin: 20px; background-color: white" href="{% url 'offers:offer_details_view' offer.pk %}">
-                    {% if image is None %}
-                        <img style="width: 200px; height: 100px; object-fit: contain" src="https://via.placeholder.com/700x400?text=placeholder" />
-                    {% else %}
-                        <img style="width: 200px; height: 100px; object-fit: contain" src="{{ image.base64_dump }}" />
-                    {% endif %}
-                    <br/>
-                    <span>{{ offer.title }}</span><br>
-                    <span style="float: right; color: grey">${{ offer.price }}</span>
-                </a>
+                {% include "./offer_tile.html" %}
             {% endfor %}
         </div>
     </div>
