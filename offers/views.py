@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import CreateView, TemplateView
 
-from offers.models import Offer, Image, District, City, Country
+from offers.models import Offer, Image, District, City, Country, Category, Subcategory
 
 
 #def offers_feed_view(request):
@@ -16,6 +16,12 @@ from offers.models import Offer, Image, District, City, Country
 
 class OfferFeedView(TemplateView):
     template_name = 'offers/offer_list.html'
+
+    sortFunction = {
+        #'relevance': (???),
+        'asc': (lambda item: item[0].price),
+        'desc': (lambda item: -item[0].price)
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,7 +31,34 @@ class OfferFeedView(TemplateView):
             offers.append((offer, Image.objects.filter(offer=offer.pk).first()))
 
         context['offers'] = offers
+        context['categories'] = Category.objects.all()
         return context
+
+    def get(self, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        # filters
+        low = float(self.request.GET.get('low', '0') or '0') - 0.05
+        high = float(self.request.GET.get('high', 'inf') or 'inf')
+        search = self.request.GET.get('search', '')
+
+        #print(self.request.GET.getlist('interest[]', 'Nothing here'))
+        category_list = self.request.GET.getlist('category[]', None)
+        if category_list:
+            checked_category_pks = [category.pk for category in Category.objects.filter(name__in=category_list)]
+            checked_subcategory_pks = [subcategory.pk for subcategory in Subcategory.objects.filter(category__in=checked_category_pks)]
+
+        context['offers'] = list(filter(
+            lambda item: low <= item[0].price <= high and search.lower() in item[0].title.lower() and
+                         (not category_list or item[0].subcategory.pk in checked_subcategory_pks),
+            context['offers']))
+
+        # sorting
+        sortby = self.request.GET.get('sortby', None)
+        if sortby in self.sortFunction.keys():
+            context['offers'].sort(key=self.sortFunction[sortby])
+
+        return self.render_to_response(context)
 
 
 # def offer_details_view(request, pk):
