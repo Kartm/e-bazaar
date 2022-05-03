@@ -78,10 +78,20 @@ class UserProfileView(TemplateView):
             return HttpResponseRedirect(self.request.path)
         return self.render_to_response(context)
 
+
 class FavoritesView(TemplateView):
     template_name = "users/favorites_view.html"
 
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
+
+        favourites = Offer.objects.filter(favorites__pk=pk)
+        print(pk)
+        for fav in favourites:
+            print(fav.title)
+        print(favourites.all())
+
+        context['favourites'] = favourites
+
         return context

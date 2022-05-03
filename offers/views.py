@@ -28,11 +28,6 @@ class OfferFeedView(TemplateView):
         return context
 
 
-# def offer_details_view(request, pk):
-#     return render(request=request, template_name="offers/offer_detail_view.html")
-# todo well details are removed now
-
-
 
 class OfferDetailView(TemplateView):
     template_name = 'offers/offer_detail_view.html'

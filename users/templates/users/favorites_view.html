@@ -4,7 +4,10 @@
 
     <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
         <div style="display: flex; flex-direction: row; font-size: xx-large">
-            todo favorites
+{#            todo favorites#}
+            {% for fav in favourites %}
+                <div>{{ fav.title }}, </div>
+            {% endfor %}
         </div>
     </div>
 
