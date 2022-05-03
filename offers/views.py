@@ -33,9 +33,9 @@ class OfferDetailView(TemplateView):
     template_name = 'offers/offer_detail_view.html'
 
     def get_context_data(self, **kwargs):
-        pk = self.kwargs.get('pk')
+        offer_pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
-        offer = Offer.objects.get(pk=pk)
+        offer = Offer.objects.get(pk=offer_pk)
         images = Image.objects.filter(offer=offer.pk)
         district = District.objects.get(pk=offer.district.pk)
         city = City.objects.get(pk=district.city.pk)

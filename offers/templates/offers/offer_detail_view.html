@@ -42,9 +42,9 @@
                     <form method="post">
                         {% csrf_token %}
                         {% if isFavorite %}
-                            <input type="submit" value="Add to favorites"/>
-                        {% else %}
                             <input type="submit" value="Remove favorite"/>
+                        {% else %}
+                            <input type="submit" value="Add to favorites"/>
                         {% endif %}
                         <input type="hidden" name="favorite">
                     </form>

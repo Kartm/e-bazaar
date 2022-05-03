@@ -83,11 +83,11 @@ class FavoritesView(TemplateView):
     template_name = "users/favorites_view.html"
 
     def get_context_data(self, **kwargs):
-        pk = self.kwargs.get('pk')
+        user_pk = self.request.user.pk
         context = super().get_context_data(**kwargs)
 
-        favourites = Offer.objects.filter(favorites__pk=pk)
-        print(pk)
+        favourites = Offer.objects.filter(favorites__pk=user_pk)
+        print(user_pk)
         for fav in favourites:
             print(fav.title)
         print(favourites.all())
