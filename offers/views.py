@@ -28,7 +28,6 @@ class OfferFeedView(TemplateView):
         return context
 
 
-
 class OfferDetailView(TemplateView):
     template_name = 'offers/offer_detail_view.html'
 
