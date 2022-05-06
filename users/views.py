@@ -78,10 +78,24 @@ class UserProfileView(TemplateView):
             return HttpResponseRedirect(self.request.path)
         return self.render_to_response(context)
 
+
 class FavoritesView(TemplateView):
     template_name = "users/favorites_view.html"
 
     def get_context_data(self, **kwargs):
-        pk = self.kwargs.get('pk')
+        user_pk = self.request.user.pk
         context = super().get_context_data(**kwargs)
+
+        favourites = Offer.objects.filter(favorites__pk=user_pk)
+        context['favourites'] = favourites
         return context
+
+    def post(self, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if 'offer_id' in self.request.POST:
+            offer_id = self.request.POST.get('offer_id')
+            print(offer_id)
+            Offer.objects.get(pk=offer_id).favorites.remove(self.request.user)
+            return HttpResponseRedirect(self.request.path)
+        return self.render_to_response(context)
