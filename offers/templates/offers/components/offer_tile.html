@@ -9,4 +9,12 @@
             <h6>${{ offer.price }}</h6>
         </div>
     </a>
+
+    {% if show_favorite_remove_button %}
+        <form class="remove-favorite" method="post">
+            {% csrf_token %}
+            <input type="submit" name="favorite" value="✖"/>
+            <input type="hidden" name="offer_id" value="{{ offer.pk }}"/>
+        </form>
+    {% endif %}
 </div>

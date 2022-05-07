@@ -2,27 +2,9 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
-        <div style="display: flex; flex-direction: row; font-size: xx-large">
-{#            todo favorites#}
-            {% for fav in favourites %}
-                <a href="{% url 'offers:offer_details_view' fav.pk %}">
-                    <div style="height: fit-content; margin: 20px; background-color: white">
+    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
+        {% include "offers/components/offer_grid.html" with offers=favourites show_favorite_remove_button=True%}
 
-                            <span>{{ fav.title }}</span><br>
-
-
-                        <span style="float: right; color: grey">${{ offer.price }}</span>
-
-                        <form method="post">
-                            {% csrf_token %}
-                            <input type="submit" name="favorite" value="Remove favorite"/>
-                            <input type="hidden" name="offer_id" value="{{ fav.pk }}"/>
-                        </form>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
     </div>
 
 {% endblock %}

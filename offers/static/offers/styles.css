@@ -5,6 +5,7 @@
     box-sizing: border-box;
     border-radius: 4px;
     display: flex;
+    position: relative;
 }
 
 .offer-tile a {
@@ -45,4 +46,10 @@
     color: var(--gray);
     text-align: right;
     margin: 0;
+}
+
+.offer-tile .remove-favorite {
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }

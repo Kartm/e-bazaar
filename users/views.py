@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import TemplateView
 
-from offers.models import Offer
+from offers.models import Offer, Image
 from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib import messages
@@ -86,7 +86,9 @@ class FavoritesView(TemplateView):
         user_pk = self.request.user.pk
         context = super().get_context_data(**kwargs)
 
-        favourites = Offer.objects.filter(favorites__pk=user_pk)
+        favourites = []
+        for offer in Offer.objects.filter(favorites__pk=user_pk):
+            favourites.append((offer, Image.objects.filter(offer=offer.pk).first()))
         context['favourites'] = favourites
         return context
 
