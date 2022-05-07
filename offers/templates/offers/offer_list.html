@@ -10,10 +10,8 @@
     </div>
     {% endif %}
 
-    <div style="display: flex; height: 100%; overflow-y: scroll; margin: 10px; padding: 20px; background-color: lightgrey">
-        <div style="width: 30%; background-color: white" >
-            {# form for filtering offers #}
-            <form method="get" style="margin: 10px">
+    <div style="display: flex; height: 100%; overflow-y: scroll; margin: 10px; padding: 20px; align-items: flex-start; background-color: lightgrey">
+            <form method="get" style="width: 300px; margin-right: 20px; padding: 10px; background-color: white">
                 <input type="search" name="search" style="margin-bottom: 40px">
                 <input type="submit">
 
@@ -45,8 +43,7 @@
                     {% endfor %}
                 </fieldset>
             </form>
-        </div>
-        <div style="width: 100%; display: grid; grid-template-columns: repeat(auto-fill, 300px); gap: 20px;">
+        <div style="flex: 1; display: grid; grid-template-columns: repeat(auto-fill, 300px); gap: 20px;">
             {% for offer, image in offers %}
                 {% include "./offer_tile.html" %}
             {% endfor %}
