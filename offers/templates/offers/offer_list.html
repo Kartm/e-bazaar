@@ -43,11 +43,7 @@
                     {% endfor %}
                 </fieldset>
             </form>
-        <div style="flex: 1; display: grid; grid-template-columns: repeat(auto-fill, 300px); gap: 20px;">
-            {% for offer, image in offers %}
-                {% include "./offer_tile.html" %}
-            {% endfor %}
-        </div>
+        {% include "./components/offer_grid.html" with offers=offers %}
     </div>
 
 {% endblock %}
