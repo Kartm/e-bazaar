@@ -6,6 +6,11 @@
     border-radius: 4px;
     display: flex;
     position: relative;
+    flex-direction: column;
+}
+
+.offer-tile.big {
+    height: 300px;
 }
 
 .offer-tile a {
@@ -52,4 +57,21 @@
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+.offer-tile .owner-actions {
+    border-top: 1px solid #eee;
+    padding: 10px;
+    margin: 0;
+}
+
+.offer-tile .owner-actions .action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.offer-tile .owner-actions .action-buttons input:first-child{
+    margin-right: 10px;
 }

@@ -55,16 +55,20 @@ class UserProfileView(TemplateView):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
         user = get_user_model().objects.get(pk=pk)
-        offers = Offer.objects.filter(owner_id=pk)
+
+        profile_user_offers = []
+        for offer in Offer.objects.filter(owner_id=pk):
+            profile_user_offers.append((offer, Image.objects.filter(offer=offer.pk).first()))
+        context['profile_user_offers'] = profile_user_offers
+
         context['profile_user'] = user
-        context['is_profile_user_me'] = pk == self.request.user.pk
-        context['profile_user_offers'] = offers
+        context['is_owner'] = pk == self.request.user.pk
         return context
 
     def post(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
 
-        if not context['is_profile_user_me']:
+        if not context['is_owner']:
             return HttpResponseRedirect(self.request.path)
 
         if 'action' in self.request.POST and 'offer_id' in self.request.POST:
