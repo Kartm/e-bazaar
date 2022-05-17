@@ -34,6 +34,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'stats:stats_view' %}">Statistics</a>
+                </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'offers:offers_feed_view' %}">Browse offers</a>
