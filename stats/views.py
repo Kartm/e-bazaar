@@ -2,10 +2,14 @@ import base64
 import io
 import urllib
 
+import matplotlib
+
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 from django.views.generic import TemplateView
 
 from offers.models import Offer
-import matplotlib.pyplot as plt
 
 
 class StatsView(TemplateView):
@@ -14,7 +18,7 @@ class StatsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        category_names = list(Offer.objects.all().values_list('subcategory__category__name', flat=True))
+        category_names = list(Offer.active_offer_objects.all().values_list('subcategory__category__name', flat=True))
 
         counted = dict((x, category_names.count(x)) for x in set(category_names))
 
@@ -24,6 +28,7 @@ class StatsView(TemplateView):
         fig1, ax1 = plt.subplots()
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        ax1.set_title("Category distribution of currently active offers",  y=1.05)
 
         chart_bytes = io.BytesIO()
         plt.savefig(chart_bytes, format='png')
