@@ -1,10 +1,9 @@
 {% extends "users/header.html" %}
 
-{% block content %}
-
 {% load crispy_forms_tags %}
 
-{% crispy form %}
-
+{% block content %}
+    {% csrf_token %}
+    {{ form|crispy }}
 
 {% endblock %}

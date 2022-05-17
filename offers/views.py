@@ -106,6 +106,10 @@ class OfferCreateForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.enctype = 'multipart/form-data'
+        # self.helper.form_class = 'form-horizontal uniForm'
+        # self.helper.form_group_wrapper_class = 'form-group'
+        # self.helper.label_class = 'col-lg-2'
+        # self.helper.field_class = 'col-lg-8'
 
         self.helper.add_input(Submit('submit', 'Submit'))
 
