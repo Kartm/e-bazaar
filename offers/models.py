@@ -41,7 +41,14 @@ class Subcategory(models.Model):
         return f"{self.category}: {self.name}"
 
 
+class OfferManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(open=True)
+
+
 class Offer(models.Model):
+    active_offer_objects = OfferManager()
+
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(decimal_places=2, max_digits=8)

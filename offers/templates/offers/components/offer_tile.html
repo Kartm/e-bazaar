@@ -1,0 +1,32 @@
+{# clicking this item should lead to details page... #}
+<div class="offer-tile {% if is_owner %}big{% else %}{% endif %}">
+    <a href="{% url 'offers:offer_details_view' offer.pk %}">
+
+        <img src="{{ image.base64_dump|default:"https://via.placeholder.com/700x400?text=placeholder" }}"/>
+
+        <div class="info">
+            <span>{{ offer.title }}</span>
+            <h6>${{ offer.price }}</h6>
+        </div>
+    </a>
+
+    {% if is_owner %}
+        <form class="owner-actions" method="post">
+            <span>Last bump: {{ offer.last_bump }}</span>
+            {% csrf_token %}
+            <div class="action-buttons">
+                <input name="action" type="submit" value="Bump"/>
+                <input name="action" type="submit" value="Close"/>
+                <input type="hidden" name="offer_id" value="{{ offer.pk }}"/>
+            </div>
+        </form>
+    {% endif %}
+
+    {% if show_favorite_remove_button %}
+        <form class="remove-favorite" method="post">
+            {% csrf_token %}
+            <input type="submit" name="favorite" value="✖"/>
+            <input type="hidden" name="offer_id" value="{{ offer.pk }}"/>
+        </form>
+    {% endif %}
+</div>

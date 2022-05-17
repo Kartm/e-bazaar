@@ -27,7 +27,7 @@ class OfferFeedView(TemplateView):
         context = super().get_context_data(**kwargs)
         offers = []
 
-        for offer in Offer.objects.all():
+        for offer in Offer.active_offer_objects.all():
             offers.append((offer, Image.objects.filter(offer=offer.pk).first()))
 
         context['offers'] = offers
@@ -67,7 +67,7 @@ class OfferDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         offer_pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
-        offer = Offer.objects.get(pk=offer_pk)
+        offer = Offer.active_offer_objects.get(pk=offer_pk)
         images = Image.objects.filter(offer=offer.pk)
         district = District.objects.get(pk=offer.district.pk)
         city = City.objects.get(pk=district.city.pk)

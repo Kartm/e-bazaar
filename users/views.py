@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import TemplateView
 
-from offers.models import Offer
+from offers.models import Offer, Image
 from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib import messages
@@ -55,16 +55,20 @@ class UserProfileView(TemplateView):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
         user = get_user_model().objects.get(pk=pk)
-        offers = Offer.objects.filter(owner_id=pk)
+
+        profile_user_offers = []
+        for offer in Offer.active_offer_objects.filter(owner_id=pk):
+            profile_user_offers.append((offer, Image.objects.filter(offer=offer.pk).first()))
+        context['profile_user_offers'] = profile_user_offers
+
         context['profile_user'] = user
-        context['is_profile_user_me'] = pk == self.request.user.pk
-        context['profile_user_offers'] = offers
+        context['is_owner'] = pk == self.request.user.pk
         return context
 
     def post(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
 
-        if not context['is_profile_user_me']:
+        if not context['is_owner']:
             return HttpResponseRedirect(self.request.path)
 
         if 'action' in self.request.POST and 'offer_id' in self.request.POST:
@@ -72,9 +76,9 @@ class UserProfileView(TemplateView):
             offer_id = self.request.POST.get('offer_id')
 
             if action == 'Bump':
-                Offer.objects.filter(pk=offer_id).update(last_bump=timezone.now())
+                Offer.active_offer_objects.filter(pk=offer_id).update(last_bump=timezone.now())
             elif action == 'Close':
-                print('CLOSE')
+                Offer.active_offer_objects.filter(pk=offer_id).update(open=False)
             return HttpResponseRedirect(self.request.path)
         return self.render_to_response(context)
 
@@ -86,7 +90,9 @@ class FavoritesView(TemplateView):
         user_pk = self.request.user.pk
         context = super().get_context_data(**kwargs)
 
-        favourites = Offer.objects.filter(favorites__pk=user_pk)
+        favourites = []
+        for offer in Offer.active_offer_objects.filter(favorites__pk=user_pk):
+            favourites.append((offer, Image.objects.filter(offer=offer.pk).first()))
         context['favourites'] = favourites
         return context
 
@@ -96,6 +102,6 @@ class FavoritesView(TemplateView):
         if 'offer_id' in self.request.POST:
             offer_id = self.request.POST.get('offer_id')
             print(offer_id)
-            Offer.objects.get(pk=offer_id).favorites.remove(self.request.user)
+            Offer.active_offer_objects.get(pk=offer_id).favorites.remove(self.request.user)
             return HttpResponseRedirect(self.request.path)
         return self.render_to_response(context)

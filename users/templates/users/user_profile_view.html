@@ -2,29 +2,9 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
-        <div style="display: flex; flex-direction: row; font-size: xx-large">
-            <div>{{ profile_user.username }}</div>
-
-            {% for offer in profile_user_offers %}
-                <div style="height: fit-content; margin: 20px; background-color: white">
-                    <a href="{% url 'offers:offer_details_view' offer.pk %}">
-                        <span>{{ offer.title }}</span><br>
-                        <span>{{ offer.last_bump }}</span>
-                    </a>
-
-                    <span style="float: right; color: grey">${{ offer.price }}</span>
-
-                    {% if is_profile_user_me %}
-                        <form method="post">
-                            {% csrf_token %}
-                            <input name="action" type="submit" value="Bump"/>
-                            <input name="action" type="submit" value="Close"/>
-                            <input type="hidden" name="offer_id" value="{{ offer.pk }}"/>
-                        </form>
-                    {% endif %}
-                </div>
-            {% endfor %}
+    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4">
+        <div style="display: flex; flex-direction: row; padding: 20px;">
+            {% include "offers/components/offer_grid.html" with offers=profile_user_offers is_owner=is_owner%}
         </div>
     </div>
 

@@ -1,0 +1,5 @@
+<div style="flex: 1; display: grid; grid-template-columns: repeat(auto-fill, 300px); gap: 20px;">
+    {% for offer, image in offers %}
+        {% include "./offer_tile.html" with is_owner=is_owner show_favorite_remove_button=show_favorite_remove_button %}
+    {% endfor %}
+</div>
