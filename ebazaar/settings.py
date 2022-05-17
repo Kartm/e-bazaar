@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'offers',
     'users',
+    'stats',
 ]
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
