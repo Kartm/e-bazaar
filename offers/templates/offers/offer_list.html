@@ -2,47 +2,53 @@
 
 {% block content %}
 
-    {% if user.is_authenticated %}
-    <div>
-        <button style="float: right; margin-top: 10px; margin-right: 10px">
-            <a href="{% url 'offers:offer_create_view' %}">Add new offer</a>
-        </button>
-    </div>
-    {% endif %}
 
-    <div style="display: flex; height: 100%; overflow-y: scroll; margin: 10px; padding: 20px; align-items: flex-start; background-color: lightgrey">
-            <form method="get" style="width: 300px; margin-right: 20px; padding: 10px; background-color: white">
-                <input type="search" name="search" style="margin-bottom: 40px">
-                <input type="submit">
 
-                <br/>
-                <label for="sortby" style="font-size: 20px">Sort by</label>
-                <br/>
-                <select id="sortby" name="sortby" onchange="this.form.submit();">
-                    <option disabled hidden selected value>- Select -</option>
-                    <option value="relevance">Relevance</option>
-                    <option value="asc">Price: Low to High</option>
-                    <option value="desc">Price: High to Low</option>
-                </select>
+    <div style="display: flex; height: 100%; overflow-y: scroll; margin: 3% 2% 1%; padding: 20px; align-items: flex-start; background-color: #C4C4C4">
+        <form method="get" style="width: 300px; margin-right: 20px; padding: 10px; background-color: white">
+            {% if user.is_authenticated %}
+                <div>
+                    <button style="float: right; margin: 10px 10px 56px;">
+                        <a href="{% url 'offers:offer_create_view' %}">Add new offer</a>
+                    </button>
+                </div>
+            {% endif %}
 
-                <br/>
-                <label for="low" style="margin-top: 40px; font-weight: bold">Price</label>
-                <br/>
-                <input id="low" type="number" name="low" placeholder="from" style="width: 100px; text-align: center; border-radius: 25px">
-                <span style="margin-left: 10px; margin-right: 10px">-</span>
-                <input type="number" name="high" placeholder="to" style="width: 100px; text-align: center; border-radius: 25px">
+            <input type="search" name="search" style="margin-bottom: 40px">
+            <input type="submit">
 
-                <br/>
-                <fieldset style="margin-top: 40px">
-                    <legend style="font-weight: bold; font-size: 16px">Category</legend>
-                    {% for category in categories %}
-                        <div>
-                            <input type="checkbox" id="{{category}}" name="category[]" value="{{category}}">
-                            <label for="{{category}}">{{category}}</label>
-                        </div>
-                    {% endfor %}
-                </fieldset>
-            </form>
+            <br/>
+            <label for="sortby" style="font-size: 20px">Sort by</label>
+            <br/>
+            <select id="sortby" name="sortby" onchange="this.form.submit();">
+                <option disabled hidden selected value>- Select -</option>
+                <option value="relevance">Relevance</option>
+                <option value="asc">Price: Low to High</option>
+                <option value="desc">Price: High to Low</option>
+            </select>
+
+            <br/>
+            <label for="low" style="margin-top: 40px; font-weight: bold">Price</label>
+            <br/>
+            <input id="low" type="number" name="low" placeholder="from"
+                   style="width: 100px; text-align: center; border-radius: 25px">
+            <span style="margin-left: 10px; margin-right: 10px">-</span>
+            <input type="number" name="high" placeholder="to"
+                   style="width: 100px; text-align: center; border-radius: 25px">
+
+            <br/>
+            <fieldset style="margin-top: 40px">
+                <legend style="font-weight: bold; font-size: 16px">Category</legend>
+                {% for category in categories %}
+                    <div>
+                        <input type="checkbox" id="{{ category }}" name="category[]" value="{{ category }}">
+                        <label for="{{ category }}">{{ category }}</label>
+                    </div>
+                {% endfor %}
+            </fieldset>
+        </form>
+
+
         {% include "./components/offer_grid.html" with offers=offers %}
     </div>
 
