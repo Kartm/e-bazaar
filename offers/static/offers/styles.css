@@ -75,3 +75,11 @@
 .offer-tile .owner-actions .action-buttons input:first-child{
     margin-right: 10px;
 }
+
+.offer-create-form {
+    margin-top: 40px;
+}
+
+.offer-create-form textarea.form-control {
+    height: 100px;
+}
