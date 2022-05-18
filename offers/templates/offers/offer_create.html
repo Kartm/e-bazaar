@@ -1,9 +1,29 @@
 {% extends "users/header.html" %}
 
-{% load crispy_forms_tags %}
-
 {% block content %}
-    {% csrf_token %}
-    {{ form|crispy }}
+
+    <div style="margin: 3% 2% 1%; min-height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
+        {% load crispy_forms_tags %}
+
+        <h1>Create a new offer</h1>
+
+        <form method="post" novalidate enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-6">
+                {{ form.title|as_crispy_field }}
+                {{ form.description|as_crispy_field }}
+                {{ form.image }}
+                {{ form.price|as_crispy_field }}
+              </div>
+              <div class="col-6">
+                {{ form.shipping|as_crispy_field }}
+                {{ form.district|as_crispy_field }}
+                {{ form.subcategory|as_crispy_field }}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success float-right">Create</button>
+          </form>
+    </div>
 
 {% endblock %}
