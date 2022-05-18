@@ -7,13 +7,13 @@
 
         <h1>Create a new offer</h1>
 
-        <form method="post" novalidate enctype="multipart/form-data">
+        <form method="post" class="offer-create-form" novalidate enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
               <div class="col-6">
                 {{ form.title|as_crispy_field }}
                 {{ form.description|as_crispy_field }}
-                {{ form.image }}
+                {{ form.image|as_crispy_field }}
                 {{ form.price|as_crispy_field }}
               </div>
               <div class="col-6">
