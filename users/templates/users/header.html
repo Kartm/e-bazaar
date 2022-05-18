@@ -38,20 +38,23 @@
                     <a class="nav-link" href="{% url 'stats:stats_view' %}">Statistics</a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
+                    <li class="nav-item mx-1">
                         <a class="nav-link" href="{% url 'offers:offers_feed_view' %}">Browse offers</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mx-1">
                         <a class="nav-link" href="{% url 'users:favorites_view' %}">My favorites</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mx-1">
                         <a class="nav-link" href="{% url 'users:user_view' user.id %}">My offers</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{{ user.username }}</a>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="#">Logged in as: {{ user.username }}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mx-1">
                         <a class="nav-link" href="/logout"><button>Logout</button></a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="/change-password"><button>Change password</button></a>
                     </li>
 
                 {% else %}
