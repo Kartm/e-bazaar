@@ -68,5 +68,36 @@
       "name": "Unicycle",
       "category": 2
     }
+  },
+  {
+    "model": "offers.category",
+    "pk": 3,
+    "fields": {
+      "name": "Fashion"
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 8,
+    "fields": {
+      "name": "Female Clothes",
+      "category": 3
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 9,
+    "fields": {
+      "name": "Male Clothes",
+      "category": 3
+    }
+  },
+  {
+    "model": "offers.subcategory",
+    "pk": 10,
+    "fields": {
+      "name": "Watches",
+      "category": 3
+    }
   }
 ]
