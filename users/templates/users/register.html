@@ -6,8 +6,8 @@
 
 <!--Register--> 
 <div class="container py-5">
-	<h1>Register</h1>
-	<form method="POST">
+	<h1 class="text-center">Register</h1>
+	<form method="POST" class="col-lg-4 d-flex flex-column justify-center mx-auto">
 		{% csrf_token %}
 		{{ register_form|crispy }}
 		<button class="btn btn-primary" type="submit">Register</button>
