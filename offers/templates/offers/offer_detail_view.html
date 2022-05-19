@@ -2,10 +2,10 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large">
+    <div style="margin: 3% 2% 1%; height: 80vh; overflow-y: scroll; background-color: #C4C4C4; font-size: large">
         <div style="display: flex; flex-direction: row; font-size: xx-large">
-            <div>{{ offer.title }}, {{ district.name }} {{ city.name }}</div>
-            <div style="position:absolute; right:5%;">${{ offer.price }}</div>
+            <span>{{ offer.title }}, {{ district.name }} {{ city.name }}</span>
+            <div style="flex: 1; text-align: right; padding-right: 5%;">${{ offer.price }}</div>
         </div>
         <br/>
         <div style="display: flex; flex-direction: row; height: 36%; overflow-x: auto;">
@@ -20,11 +20,11 @@
             {% endif %}
         </div>
 
-        <div style="display: flex; flex-direction: row; height: 43vh; padding: 1vh">
-            <div style="width: 75%; height: 100%">
-                <div style="height: 60%;">
+        <div style="display: flex; flex-direction: row; min-height: 40vh; padding: 1vh">
+            <div style="flex: 3; box-sizing: border-box; display: flex; flex-direction: column; min-height: 38vh">
+                <div style="flex: 1">
                     <div>Description:</div>
-                    <div style="overflow: auto; height: 96%">{{ offer.description }}</div>
+                    <div>{{ offer.description }}</div>
                 </div>
                 <br/>
                 <div>
@@ -33,10 +33,14 @@
                 </div>
 
             </div>
-            <div style="padding-left: 1vw; padding-right: 1vw;">
-                <div style=" height: 75%">
+            <div style="flex: 1; box-sizing: border-box; display: flex; flex-direction: column; min-height: 38vh; padding-left: 1vw; padding-right: 1vw">
+                <div style="flex: 1">
                     <div>Shipping options:</div>
                     <div>{{ offer.shipping }}</div>
+                    <br>
+                    <div>Contact info:</div>
+                    <div>{{ contact_info }}</div>
+                    <br>
                 </div>
                 <div style="display: flex; flex-direction: row; font-size: small">
                     <form method="post">

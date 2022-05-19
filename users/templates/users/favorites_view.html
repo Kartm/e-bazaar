@@ -1,8 +1,7 @@
 {% extends "users/header.html" %}
 
 {% block content %}
-
-    <div style="margin: 3% 2% 1%; height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
+    <div style="margin: 3% 2% 1%; overflow-y: scroll; height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
         {% if not favourites %}
             <div style="align-content: center">Looks like you have no favorites!</div>
         {% endif %}
