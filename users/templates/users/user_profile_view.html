@@ -4,6 +4,9 @@
 
     <div style="margin: 3% 2% 1%; overflow-y: scroll; height: 80vh; background-color: #C4C4C4">
         <div style="display: flex; flex-direction: row; padding: 20px;">
+            {% if not profile_user_offers %}
+                <div style="align-content: center">Looks like you created no offers!</div>
+            {% endif %}
             {% include "offers/components/offer_grid.html" with offers=profile_user_offers is_owner=is_owner%}
         </div>
     </div>
