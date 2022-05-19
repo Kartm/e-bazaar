@@ -7,8 +7,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import CreateView, TemplateView
+from django.contrib.auth import get_user_model
 
 from offers.models import Offer, Image, District, City, Country, Category, Subcategory
+from users.models import Contact
 
 
 #def offers_feed_view(request):
@@ -78,6 +80,10 @@ class OfferDetailView(TemplateView):
         context['city'] = city
         context['country'] = country
         context['isFavorite'] = context['offer'].favorites.filter(pk=self.request.user.pk).exists()
+        try:
+            context['contact_info'] = get_user_model().objects.get(pk=offer.owner.pk).contact.info
+        except Contact.DoesNotExist:
+            context['contact_info'] = "No contact info"
         return context
 
     def post(self, *args, **kwargs):
