@@ -48,8 +48,12 @@
             </fieldset>
         </form>
 
+        {% if not offers %}
+            <div style="align-content: center">Looks like we couldn't find any offers to suit your criteria</div>
+        {% endif %}
 
         {% include "./components/offer_grid.html" with offers=offers %}
+
     </div>
 
 {% endblock %}
