@@ -3,53 +3,61 @@
 {% block content %}
 
 
+<div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
+    <div class="card-body" style="display: flex; align-items: flex-start; ">
+        <div class="card" style="margin-right: 40px;">
+            <form class="card-body" method="get" style="width: 300px; padding: 10px;">
+                <div class="form-group">
+                    <label for="search">Keywords</label>
+                    <input type="search" class="form-control" name="search" id="search">
+                </div>
 
-    <div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
-        <div class="card-body" style="display: flex; align-items: flex-start; ">
-            <form method="get" style="width: 300px; margin-right: 20px; padding: 10px; background-color: white">
+                <div class="form-group">
+                    <label for="sortby">Sort by</label>
+                    <select class="form-control" id="sortby" name="sortby">
+                        <option disabled hidden selected value>- Select -</option>
+                        <option value="relevance">Relevance</option>
+                        <option value="asc">Price: Low to High</option>
+                        <option value="desc">Price: High to Low</option>
+                    </select>
+                </div>
 
+                <div class="form-group">
+                    <label for="low">Price</label>
+                    <div class="form-row">
+                        <div class="col-4">
+                            <input type="number" name="low" id="low" class="form-control" placeholder="From">
+                        </div>
+                        <div class="d-flex align-items-center" style="margin-left: 10px; margin-right: 10px">-</div>
+                        <div class="col-4">
+                            <input type="number" name="high" id="high" class="form-control" placeholder="To">
+                        </div>
+                    </div>
+                </div>
 
-            <input type="search" name="search" style="margin-bottom: 40px">
-            <input type="submit">
-
-            <br/>
-            <label for="sortby" style="font-size: 20px">Sort by</label>
-            <br/>
-            <select id="sortby" name="sortby" onchange="this.form.submit();">
-                <option disabled hidden selected value>- Select -</option>
-                <option value="relevance">Relevance</option>
-                <option value="asc">Price: Low to High</option>
-                <option value="desc">Price: High to Low</option>
-            </select>
-
-            <br/>
-            <label for="low" style="margin-top: 40px; font-weight: bold">Price</label>
-            <br/>
-            <input id="low" type="number" name="low" placeholder="from"
-                   style="width: 100px; text-align: center; border-radius: 25px">
-            <span style="margin-left: 10px; margin-right: 10px">-</span>
-            <input type="number" name="high" placeholder="to"
-                   style="width: 100px; text-align: center; border-radius: 25px">
-
-            <br/>
-            <fieldset style="margin-top: 40px">
-                <legend style="font-weight: bold; font-size: 16px">Category</legend>
-                {% for category in categories %}
+                <fieldset class="form-group">
+                    <legend style="font-size: 16px;">Category</legend>
+                    {% for category in categories %}
                     <div>
                         <input type="checkbox" id="{{ category }}" name="category[]" value="{{ category }}">
                         <label for="{{ category }}">{{ category }}</label>
                     </div>
-                {% endfor %}
-            </fieldset>
-        </form>
+                    {% endfor %}
+                </fieldset>
+
+                <div class="d-flex justify-content-end">
+                    <input class="btn btn-primary" type="submit">
+                </div>
+            </form>
+        </div>
 
         {% if not offers %}
-            <div style="align-content: center">Looks like we couldn't find any offers to suit your criteria</div>
+        <div style="align-content: center">Looks like we couldn't find any offers to suit your criteria</div>
         {% endif %}
 
         {% include "./components/offer_grid.html" with offers=offers %}
-        </div>
-
     </div>
+
+</div>
 
 {% endblock %}
