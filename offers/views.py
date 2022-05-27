@@ -100,7 +100,7 @@ class OfferDetailView(TemplateView):
 
 
 class OfferCreateForm(forms.ModelForm):
-    image = forms.ImageField(required=True)
+    images = forms.FileField(required=True, widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:
         model = Offer
@@ -124,8 +124,9 @@ class OfferCreateView(CreateView):
         self.object.owner = self.request.user
         self.object.save()
 
-        prefix = f"data:image/{str(self.request.FILES.get('image')).split('.')[-1]};base64,"
-        encoded_string = base64.b64encode(self.request.FILES.get('image').file.read()).decode('utf-8')
-        offer_image = Image(offer=self.object, base64_dump=f"{prefix}{encoded_string}")
-        offer_image.save()
+        for image in self.request.FILES.getlist('images'):
+            prefix = f"data:image/{str(image).split('.')[-1]};base64,"
+            encoded_string = base64.b64encode(image.file.read()).decode('utf-8')
+            Image.objects.create(offer=self.object, base64_dump=f"{prefix}{encoded_string}")
+
         return HttpResponseRedirect(self.get_success_url())
