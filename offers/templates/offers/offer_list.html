@@ -4,15 +4,10 @@
 
 
 
-    <div style="display: flex; height: 100%; overflow-y: scroll; margin: 3% 2% 1%; padding: 20px; align-items: flex-start; background-color: #C4C4C4">
-        <form method="get" style="width: 300px; margin-right: 20px; padding: 10px; background-color: white">
-            {% if user.is_authenticated %}
-                <div>
-                    <button style="float: right; margin: 10px 10px 56px;">
-                        <a href="{% url 'offers:offer_create_view' %}">Add new offer</a>
-                    </button>
-                </div>
-            {% endif %}
+    <div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
+        <div class="card-body" style="display: flex; align-items: flex-start; ">
+            <form method="get" style="width: 300px; margin-right: 20px; padding: 10px; background-color: white">
+
 
             <input type="search" name="search" style="margin-bottom: 40px">
             <input type="submit">
@@ -53,6 +48,7 @@
         {% endif %}
 
         {% include "./components/offer_grid.html" with offers=offers %}
+        </div>
 
     </div>
 
