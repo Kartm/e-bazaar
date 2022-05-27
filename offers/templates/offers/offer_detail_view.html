@@ -15,15 +15,15 @@
                     <form method="post" style="margin: 0;">
                     {% csrf_token %}
                     {% if isFavorite %}
-                    <input class="btn btn-outline-danger" type="submit" value="Remove from favorites"/>
+                    <input class="btn btn-outline-danger btn-sm" type="submit" value="Remove from favorites"/>
                     {% else %}
-                    <input class="btn btn-outline-dark" type="submit" value="Add to favorites"/>
+                    <input class="btn btn-outline-dark btn-sm" type="submit" value="Add to favorites"/>
                     {% endif %}
                     <input type="hidden" name="favorite">
                 </form>
-                <a style="height: fit-content; margin: 20px; background-color: white"
+                <a style="height: fit-content; margin: 20px;"
                    href="{% url 'users:user_view' offer.owner_id %}">
-                    Author's profile
+                    Go to author's profile
                 </a>
                 </div>
             </div>

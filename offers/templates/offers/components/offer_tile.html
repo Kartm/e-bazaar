@@ -15,8 +15,8 @@
             <span>Last bump: {{ offer.last_bump }}</span>
             {% csrf_token %}
             <div class="action-buttons">
-                <input name="action" type="submit" value="Bump"/>
-                <input name="action" type="submit" value="Close"/>
+                <input class="btn btn-info btn-sm" name="action" type="submit" value="Bump"/>
+                <input class="btn btn-danger btn-sm" name="action" type="submit" value="Close"/>
                 <input type="hidden" name="offer_id" value="{{ offer.pk }}"/>
             </div>
         </form>
