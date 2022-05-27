@@ -2,8 +2,10 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; overflow-y: scroll; height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
-        <img style="object-fit: cover" src="{{ chart_image }}"/>
+<div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
+    <div class="card-body" style="display: flex; align-items: flex-start; ">
+        <img style="object-fit: cover; border: 1px solid #d7d7d7;" src="{{ chart_image }}"/>
     </div>
+</div>
 
 {% endblock %}
