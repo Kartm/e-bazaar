@@ -2,21 +2,41 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; height: 80vh; overflow-y: scroll; background-color: #C4C4C4; font-size: large">
-        <div style="display: flex; flex-direction: row; font-size: xx-large">
-            <span>{{ offer.title }}, {{ district.name }} {{ city.name }}</span>
-            <div style="flex: 1; text-align: right; padding-right: 5%;">${{ offer.price }}</div>
+<div class="card" style="margin: 3% 2% 1%; height: 80vh;">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-6">
+                <h5 class="card-title">{{ offer.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${{ offer.price }}</h6>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-end align-items-center">
+                    <form method="post" style="margin: 0;">
+                    {% csrf_token %}
+                    {% if isFavorite %}
+                    <input type="submit" value="Remove from favorites"/>
+                    {% else %}
+                    <input type="submit" value="Add to favorites"/>
+                    {% endif %}
+                    <input type="hidden" name="favorite">
+                </form>
+                <a style="height: fit-content; margin: 20px; background-color: white"
+                   href="{% url 'users:user_view' offer.owner_id %}">
+                    Author's profile
+                </a>
+                </div>
+            </div>
         </div>
-        <br/>
-        <div style="display: flex; flex-direction: row; height: 36%; overflow-x: auto;">
+        <div style="display: flex; flex-direction: row; width: 100%; height: 36%; overflow-x: auto; margin-top: 32px; border: 1px solid rgba(0,0,0,.125)">
             {% for image in images %}
-                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
-{#                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>#}
-{#                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>#}
-{#                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>#}
+            <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
+            <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
+            <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
             {% endfor %}
             {% if images|length == 0 %}
-                <img style="width: 200px; height: 100px; object-fit: contain" src="https://via.placeholder.com/700x400?text=placeholder" />
+            <img style="width: 200px; height: 100px; object-fit: contain"
+                 src="https://via.placeholder.com/700x400?text=placeholder"/>
             {% endif %}
         </div>
 
@@ -42,22 +62,9 @@
                     <div>{{ contact_info }}</div>
                     <br>
                 </div>
-                <div style="display: flex; flex-direction: row; font-size: small">
-                    <form method="post">
-                        {% csrf_token %}
-                        {% if isFavorite %}
-                            <input type="submit" value="Remove favorite"/>
-                        {% else %}
-                            <input type="submit" value="Add to favorites"/>
-                        {% endif %}
-                        <input type="hidden" name="favorite">
-                    </form>
-                    <a style="height: fit-content; margin: 20px; background-color: white" href="{% url 'users:user_view' offer.owner_id %}">
-                        Author's profile
-                    </a>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}
