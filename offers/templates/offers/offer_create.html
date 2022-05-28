@@ -2,12 +2,13 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; overflow-y: scroll; min-height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
+<div class="card bg-light" style="margin: 3% 2% 1%; height: 80vh;">
+    <div class="card-body">
         {% load crispy_forms_tags %}
 
         <h1>Create a new offer</h1>
 
-        <form method="post" class="offer-create-form" novalidate enctype="multipart/form-data">
+        <form method="post" class="offer-create-form d-flex flex-column" novalidate enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
               <div class="col-6">
@@ -22,8 +23,13 @@
                 {{ form.subcategory|as_crispy_field }}
               </div>
             </div>
-            <button type="submit" class="btn btn-success float-right">Create</button>
+            <div>
+                <button type="submit" class="btn btn-success float-right">Create offer</button>
+            </div>
           </form>
     </div>
+
+</div>
+
 
 {% endblock %}

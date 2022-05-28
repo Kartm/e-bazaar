@@ -2,62 +2,65 @@
 
 {% block content %}
 
-    <div style="margin: 3% 2% 1%; height: 80vh; overflow-y: scroll; background-color: #C4C4C4; font-size: large">
-        <div style="display: flex; flex-direction: row; font-size: xx-large">
-            <span>{{ offer.title }}, {{ district.name }} {{ city.name }}</span>
-            <div style="flex: 1; text-align: right; padding-right: 5%;">${{ offer.price }}</div>
+<div class="card bg-light" style="margin: 3% 2% 1%; height: 80vh;">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-6">
+                <h4 class="card-title">{{ offer.title }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">${{ offer.price }}</h6>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-end align-items-center">
+                    <form method="post" style="margin: 0;">
+                    {% csrf_token %}
+                    {% if isFavorite %}
+                    <input class="btn btn-outline-danger btn-sm" type="submit" value="Remove from favorites"/>
+                    {% else %}
+                    <input class="btn btn-outline-dark btn-sm" type="submit" value="Add to favorites"/>
+                    {% endif %}
+                    <input type="hidden" name="favorite">
+                </form>
+                <a style="height: fit-content; margin: 20px;"
+                   href="{% url 'users:user_view' offer.owner_id %}">
+                    Go to author's profile
+                </a>
+                </div>
+            </div>
         </div>
-        <br/>
-        <div style="display: flex; flex-direction: row; height: 36%; overflow-x: auto;">
+        <div style="display: flex; flex-direction: row; width: 100%; height: 36%; overflow-x: auto; margin-top: 1.25em; border: 1px solid rgba(0,0,0,.125)">
             {% for image in images %}
-                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
-{#                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>#}
-{#                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>#}
-{#                <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>#}
+            <img style="object-fit: cover; height: 100%;" src="{{ image.base64_dump }}"/>
             {% endfor %}
             {% if images|length == 0 %}
-                <img style="width: 200px; height: 100px; object-fit: contain" src="https://via.placeholder.com/700x400?text=placeholder" />
+            <img style="width: 200px; height: 100px; object-fit: contain"
+                 src="https://via.placeholder.com/700x400?text=placeholder"/>
             {% endif %}
         </div>
 
-        <div style="display: flex; flex-direction: row; min-height: 40vh; padding: 1vh">
-            <div style="flex: 3; box-sizing: border-box; display: flex; flex-direction: column; min-height: 38vh">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-6">
                 <div style="flex: 1">
-                    <div>Description:</div>
+                    <h5>Description</h5>
                     <div>{{ offer.description }}</div>
                 </div>
-                <br/>
+            </div>
+            <div class="col">
                 <div>
-                    <div>Location:</div>
+                    <h5>Location</h5>
                     <div>{{ district.name }} {{ city.name }}, {{ country.name }}</div>
                 </div>
-
-            </div>
-            <div style="flex: 1; box-sizing: border-box; display: flex; flex-direction: column; min-height: 38vh; padding-left: 1vw; padding-right: 1vw">
-                <div style="flex: 1">
-                    <div>Shipping options:</div>
+                <div class="mt-4">
+                    <h5>Shipping options</h5>
                     <div>{{ offer.shipping }}</div>
-                    <br>
-                    <div>Contact info:</div>
-                    <div>{{ contact_info }}</div>
-                    <br>
                 </div>
-                <div style="display: flex; flex-direction: row; font-size: small">
-                    <form method="post">
-                        {% csrf_token %}
-                        {% if isFavorite %}
-                            <input type="submit" value="Remove favorite"/>
-                        {% else %}
-                            <input type="submit" value="Add to favorites"/>
-                        {% endif %}
-                        <input type="hidden" name="favorite">
-                    </form>
-                    <a style="height: fit-content; margin: 20px; background-color: white" href="{% url 'users:user_view' offer.owner_id %}">
-                        Author's profile
-                    </a>
+                <div class="mt-4">
+                    <h5>Contact info</h5>
+                    <div>{{ contact_info }}</div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}

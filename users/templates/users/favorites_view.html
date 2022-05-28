@@ -1,13 +1,14 @@
 {% extends "users/header.html" %}
 
 {% block content %}
-    <div style="margin: 3% 2% 1%; overflow-y: scroll; height: 80vh; background-color: #C4C4C4; font-size: large; padding: 20px;">
+<div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
+    <div class="card-body">
         {% if not favourites %}
             <div style="align-content: center">Looks like you have no favorites!</div>
         {% endif %}
 
         {% include "offers/components/offer_grid.html" with offers=favourites show_favorite_remove_button=True%}
-
     </div>
+</div>
 
 {% endblock %}
