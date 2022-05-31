@@ -5,7 +5,7 @@
 <div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
     <div class="card-body">
         {% if not profile_user_offers %}
-                <div style="align-content: center">Looks like you created no offers!</div>
+                <div style="font-size: 18px; color: dimgrey; align-content: center">Looks like you created no offers!</div>
             {% endif %}
             {% include "offers/components/offer_grid.html" with offers=profile_user_offers is_owner=is_owner%}
     </div>
