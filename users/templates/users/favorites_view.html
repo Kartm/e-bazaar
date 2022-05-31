@@ -4,7 +4,7 @@
 <div class="card bg-light" style="height: 100%; overflow-y: scroll; margin: 3% 2% 1%;">
     <div class="card-body">
         {% if not favourites %}
-            <div style="align-content: center">Looks like you have no favorites!</div>
+            <div style="font-size: 18px; color: dimgrey; align-content: center">Looks like you have no favorites!</div>
         {% endif %}
 
         {% include "offers/components/offer_grid.html" with offers=favourites show_favorite_remove_button=True%}
