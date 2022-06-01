@@ -58,6 +58,7 @@
                        aria-expanded="false" style="background: none;">Logged in as: {{ user.username }}</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'users:change_password' %}">Change password</a>
+                        <a class="dropdown-item" href="{% url 'users:change_contact_info' %}">Change contact info</a>
                         <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
                     </div>
                 </li>
