@@ -1,0 +1,16 @@
+{% extends "users/header.html" %}
+
+{% block content %}      
+
+{% load crispy_forms_tags %}
+
+<div class="container py-5">
+  <h1 class="text-center">Change your contact information</h1>
+  <form method="POST" class="col-lg-4 d-flex flex-column justify-center mx-auto">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-primary" type="submit">Save</button>
+  </form>
+</div>
+
+{% endblock %}

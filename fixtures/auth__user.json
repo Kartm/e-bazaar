@@ -14,5 +14,13 @@
       "username": "user2",
       "password": "pbkdf2_sha256$216000$Jt3QG7Ejv0Fk$OAKfExsYmMjp6DOqhCIiFcbsQY2+4BxfPxHyzOofScQ="
     }
+  },
+  {
+    "model": "users.contact",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "info": "example@gmail.com"
+    }
   }
 ]

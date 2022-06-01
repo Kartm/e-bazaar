@@ -20,3 +20,26 @@ class NewUserForm(UserCreationForm):
 			user.save()
 			Contact(user=user, info=self.cleaned_data['contact_info']).save()
 		return user
+
+
+class ChangeContactInfoForm(forms.ModelForm):
+	contact_info = forms.Field(required=True, label="Contact Information")
+
+	class Meta:
+		model = Contact
+		fields = ("contact_info",)
+
+	def __init__(self, user, *args, **kwargs):
+		self.user = user
+		super().__init__(*args, **kwargs)
+
+	def save(self, commit=True):
+		try:
+			contact = self.user.contact
+			contact.info = self.cleaned_data['contact_info']
+		except Contact.DoesNotExist:
+			contact = Contact(user=self.user, info=self.cleaned_data['contact_info'])
+
+		if commit:
+			contact.save()
+		return contact

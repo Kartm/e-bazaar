@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 
 from offers.models import Offer, Image
-from .forms import NewUserForm
+from .forms import NewUserForm, ChangeContactInfoForm
 from django.contrib.auth import login, authenticate, logout, get_user_model, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -48,13 +48,29 @@ def change_password_request(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was successfully updated!')
+            # messages.success(request, 'Your password was successfully updated!')
             return redirect('.')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'users/change_password.html', {
+        'form': form
+    })
+
+
+def change_contact_info_request(request):  # PasswordChangeForm should be another form
+    if request.method == 'POST':
+        form = ChangeContactInfoForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            # messages.success(request, 'Your contact info was successfully updated!')
+            return redirect('.')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = ChangeContactInfoForm(request.user)
+    return render(request, 'users/change_contact_info.html', {
         'form': form
     })
 
